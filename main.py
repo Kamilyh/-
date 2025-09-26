@@ -1,14 +1,18 @@
-meme_dict = {
-            "КРИНЖ": "Что-то очень странное или стыдное",
-            "ЛОЛ": "Что-то очень смешное",
-            'РОФЛ': 'шутка',
-            'ЩИЩ': 'одобрение или восторг',
-            'КРИПОВЫЙ': 'страшный, пугающий',
-            'АГРИТЬСЯ': 'злиться'
-            
-                }
-word = input("Введите непонятное слово (большими буквами!): ")
-if word in meme_dict.keys():
-    print(meme_dict[word])
-else:
-    print('слово не найдено')
+import telebot
+    
+    # Инициализация бота с использованием его токена
+bot = telebot.TeleBot("8224862794:AAEL07ez-gOWknArk8Gbg7jDDlrPjOufQfw")
+
+    # Обработчик команды '/start' и '/hello'
+@bot.message_handler(commands=['start', 'hello'])
+def send_welcome(message):
+    bot.reply_to(message, f'Привет! Я бот {bot.get_me().first_name}!')
+    
+    # Обработчик команды '/heh'
+@bot.message_handler(commands=['heh'])
+def send_heh(message):
+    count_heh = int(message.text.split()[1]) if len(message.text.split()) > 1 else 5
+    bot.reply_to(message, "he" * count_heh)
+    
+    # Запуск бота
+bot.polling()
